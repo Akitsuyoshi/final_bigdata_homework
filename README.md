@@ -1,7 +1,37 @@
+# FINAL HOMEWORK
+This project contains 3 applications and 1 database.
 
-## PREREQUISITE
+* Basic web application
+* Data analyzer
+* Data collector
+* Database
+
+Single web applications, Basic web app, with two background workers.
+
+## WHITEBOARD ARCHITECTURE
+
+## TECH STACK
+This codebase is written in Javascript, using express.js library for web servers. The codebase is tested with Jest and supertest and uses npm to build and install the all web applications. Docker is used to containalized sevices, including mongoDB, and apply Semaphore for CI/CD. Once test is finished without any failure on Semaphore, it deploy this containalized app to Heroku.
+
+## GETTING STARTED
+
+### PREREQUISITE
 
 Installed Docker on your local machine, and get it running
 
-## SETUP
-docker-compose up --build
+### SETUP
+```sh
+# if no output is seen here, please install and run docker then.
+> docker ps
+
+> docker-compose up --build
+```
+
+### MONITOR METRICS ENDPOINTS
+After setup to run the app on local, if you hit `http://localhost:3000/health` on browser, you will get 200 ok. `http://localhost:3000/metrics` will show you the meaningful metrics given by prometheus.
+
+## REFERENCES
+
+- [class starter code](https://github.com/initialcapacity/kotlin-ktor-starter)
+- [CI for semaphore](https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application)
+- [CD for heloku, semaphore, and mongo Atlas](https://semaphoreci.com/community/tutorials/continuous-deployment-of-a-python-flask-application-with-docker-and-semaphore)

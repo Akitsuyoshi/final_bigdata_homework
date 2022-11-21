@@ -1,0 +1,34 @@
+version: "3"
+services:
+  basic_server:
+    build: ./applications/basic_server
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+  data_analyzer:
+    build: ./applications/data_analyzer_server
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    volumes:
+      - ./db:/data/db
+      - ./configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    ports:
+      - "27017:27017"
+  data_collector:
+    build: ./applications/data_collector_server
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002

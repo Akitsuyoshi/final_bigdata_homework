@@ -17,18 +17,37 @@ This codebase is written in Javascript, using express.js library for web servers
 
 ### PREREQUISITE
 
-Installed Docker on your local machine, and get it running
+Installed Docker and MongoDB on your local machine, and get them running.
 
 ### SETUP
 ```sh
-# if no output is seen here, please install and run docker then.
+## In the terminal
+
+# if no output is seen here, please install and run MongoDB then.
+> ps -ef | grep mongod | grep -v grep
+
+# if no output here, please install and run docker.
 > docker ps
 
 > docker-compose up --build
 ```
 
+After setup and run the app on local, you will get 3 web apps
+
+- `http://localhost:3000` for basic web app
+- `http://localhost:3001` for data analyzer
+- `http://localhost:3002` for data collector
+
 ### MONITOR METRICS ENDPOINTS
-After setup to run the app on local, if you hit `http://localhost:3000/health` on browser, you will get 200 ok. `http://localhost:3000/metrics` will show you the meaningful metrics given by prometheus.
+The 2 endpoints below will show the app's condition.
+
+- `http://localhost:3000/health`
+
+    → Returns 200 ok
+
+- `http://localhost:3000/metrics`
+
+    → Returns meaningful metrics given by prometheus
 
 ## REFERENCES
 

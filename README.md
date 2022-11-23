@@ -1,4 +1,7 @@
 # FINAL HOMEWORK
+
+[![Build Status](https://akitsuyoshi.semaphoreci.com/badges/final_bigdata_homework/branches/main.svg?style=shields&key=13af1f99-dbe1-4bf3-9372-ffeebc1af08c)](https://akitsuyoshi.semaphoreci.com/projects/final_bigdata_homework)
+
 This project contains 3 applications and 1 database.
 
 * Basic web application

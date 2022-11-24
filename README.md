@@ -13,6 +13,12 @@ Single web applications, Basic web app, with two background workers.
 
 ## WHITEBOARD ARCHITECTURE
 
+### SYSTEM ARCHITECTURE
+![system arch](imgs/system.png "")
+
+### CICD ARCHITECTURE
+![cicd arch](imgs/cicd.png "")
+
 ## TECH STACK
 This codebase is written in Javascript, using express.js library for web servers. The codebase is tested with Jest and supertest and uses npm to build and install the all web applications. Docker is used to containalized sevices, including mongoDB, and apply Semaphore for CI/CD. Once test is finished without any failure on Semaphore, it deploy this containalized app to Heroku.
 

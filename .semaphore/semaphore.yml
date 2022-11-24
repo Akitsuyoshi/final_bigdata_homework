@@ -23,3 +23,18 @@ blocks:
             - 'docker push "${DOCKER_USERNAME}/nodejs_data_collector_server:latest"'
       secrets:
         - name: dockerhub
+  - name: Test
+    task:
+      secrets:
+        - name: dockerhub
+      prologue:
+        commands:
+          - checkout
+          - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+          - cat docker-compose.ci.yml | envsubst | tee docker-compose.yml
+      jobs:
+        - name: Integration Test
+          commands:
+            - docker-compose run basic_server npm test
+            - docker-compose run data_analyzer npm test
+            - docker-compose run data_collector npm test

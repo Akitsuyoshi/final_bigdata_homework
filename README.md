@@ -20,7 +20,7 @@ Single web applications, Basic web app, with two background workers.
 ![cicd arch](imgs/cicd.png "")
 
 ## TECH STACK
-This codebase is written in Javascript, using express.js library for web servers. The codebase is tested with Jest and supertest and uses npm to build and install the all web applications. Docker is used to containalized sevices, including mongoDB, and apply Semaphore for CI/CD. Once test is finished without any failure on Semaphore, it deploy this containalized app to Heroku.
+This codebase is written in Javascript, using express.js library for web servers. The codebase is tested with Jest and supertest and uses npm to build and install the all web applications. Docker is used to containalized sevices, including mongoDB, and apply RabbitMQ to communicate 3 server apps with each other. We apply Semaphore for CI/CD, while hosting this project on Heroku.
 
 ## GETTING STARTED
 
@@ -46,6 +46,28 @@ After setup and run the app on local, you will get 3 web apps
 - `http://localhost:3000` for basic web app
 - `http://localhost:3001` for data analyzer
 - `http://localhost:3002` for data collector
+
+### TEST and CI/CD
+The test commands are followed. Test files are in each app's tests folder.
+```sh
+## In the terminal
+
+# For Unit test
+# Expected output would look like this
+#  PASS  tests/app.test.js (5.735 s)
+#   Post echo user input
+#     ✓ /echo_user_input (448 ms)
+#   Get health and metric endpoints
+#     ✓ /health (58 ms)
+#     ✓ /metrics (84 ms)
+> docker-compose run basic_server npm test
+> docker-compose run data_collector npm test
+
+# For Integration test, communicating analyzer server with MongoDB
+> docker-compose run data_analyzer npm test
+```
+
+CI/CD pipelines are seen in the [CI/CD ARCHITECTURE](#cicd-architecture) section.
 
 ### MONITOR METRICS ENDPOINTS
 The 2 endpoints below will show the app's condition.

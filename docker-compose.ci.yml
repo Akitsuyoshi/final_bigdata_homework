@@ -14,17 +14,13 @@ services:
       - "3001:3001"
     environment:
       PORT: 3001
-      MONGODB_USERNAME: ${MONGODB_USERNAME}
-      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
     depends_on:
       - mongo
   mongo:
-    image: mongo
+    image: registry.semaphoreci.com/mongo:4.4
+    command: mongod --logpath=/dev/null # --quiet
     volumes:
       - ./data:/data
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
     ports:
       - "27017:27017"
   data_collector:

@@ -1,4 +1,4 @@
-FROM node:latest
+FROM registry.semaphoreci.com/node:16
 
 ENV PORT=3002
 

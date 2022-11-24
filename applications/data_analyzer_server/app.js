@@ -5,12 +5,9 @@ const promMid = require('express-prometheus-middleware');
 const mongoose = require('mongoose')
 
 if (process.env.NODE_ENV !== 'production') {
-    const { MONGODB_PASSWORD, MONGODB_USERNAME } = process.env
     mongoose.connect('mongodb://mongo:27017', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        user: MONGODB_USERNAME,
-        pass: MONGODB_PASSWORD,
         dbName: 'my_database'
     }).catch((err) => {
         console.log(err)

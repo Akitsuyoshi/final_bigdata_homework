@@ -60,7 +60,11 @@ The test commands are followed. Test files are in each app's tests folder.
 > docker-compose run data_collector npm test
 ```
 
-CI/CD pipelines are seen in the [CI/CD ARCHITECTURE](#cicd-architecture) section.
+CI/CD pipelines are seen in the [CI/CD ARCHITECTURE](#cicd-architecture) section. Every push and merge to main branch will trigger Semaphore CI/CD pipeline workflow. Then, promote changes to production, heroku and mongoDB Atlas. Semaphore workflow look something like this.
+
+
+![semaphore](imgs/semaphore.png "")
+
 
 ### DATA COLLECTOR
 

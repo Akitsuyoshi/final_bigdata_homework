@@ -23,6 +23,9 @@ blocks:
             - 'docker push "${DOCKER_USERNAME}/nodejs_data_collector_server:latest"'
       secrets:
         - name: dockerhub
+      env_vars:
+        - name: FOO_1
+          value: BAR_1
   - name: Test
     task:
       secrets:

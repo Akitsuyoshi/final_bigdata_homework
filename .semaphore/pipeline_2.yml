@@ -30,5 +30,5 @@ blocks:
         - name: heroku
         - name: mongodb-atlast
       env_vars:
-        - name: $HEROKU_APP
+        - name: HEROKU_APP
           value: semaphore-demo-for-final-app

@@ -53,24 +53,44 @@ The test commands are followed. Test files are in each app's tests folder.
 ## In the terminal
 
 # For Unit test
-# Expected output would look like this
-#  PASS  tests/app.test.js (5.735 s)
-#   Post echo user input
-#     ✓ /echo_user_input (448 ms)
-#   Get health and metric endpoints
-#     ✓ /health (58 ms)
-#     ✓ /metrics (84 ms)
 > docker-compose run basic_server npm test
-> docker-compose run data_collector npm test
 
-# For Integration test, communicating analyzer server with MongoDB
+# For Integration test, communicating server with MongoDB
 > docker-compose run data_analyzer npm test
+> docker-compose run data_collector npm test
 ```
 
 CI/CD pipelines are seen in the [CI/CD ARCHITECTURE](#cicd-architecture) section.
 
+### DATA COLLECTOR
+
+Once you call post `http://localhost:3002/us_data`, the endpoint requests to external api to get US population data and save them to MongoDB. Calling get `http://localhost:3002/us_data` endpoint will show the saved data. The endpoints code are written in [data_collector app.js](applications/data_collector_server/app.js)
+
+```sh
+## In the terminal
+
+# Post to request us population data from external api and save them to db
+> curl -X POST http://localhost:3002/us_data
+
+# Get saved us data from db
+> curl -X GET http://localhost:3002/us_data
+```
+
+### DATA ANALYZER
+If you call get `http://localhost:3002/us_data`, the endpoint will show the saved US data. If you don't see the saved us data, please post `http://localhost:3002/us_data` beforehand. Calling get `http://localhost:3001/us_data_average` will show the average US population between 2013 and 2020. The endpoints code is written in [data_analyzer app.js](applications/data_analyzer_server/app.js)
+
+```sh
+## In the terminal
+
+# Get saved us data from db. If no output are seen here, please POST http://localhost:3002/us_data beforehand.
+> curl -X GET http://localhost:3002/us_data
+
+# Get us data average population
+> curl -X GET http://localhost:3001/us_data_average
+```
+
 ### MONITOR METRICS ENDPOINTS
-The 2 endpoints below will show the app's condition.
+The 2 GET endpoints below will show the app's condition.
 
 - `http://localhost:3000/health`
 
@@ -82,6 +102,7 @@ The 2 endpoints below will show the app's condition.
 
 ## REFERENCES
 
+- [external api url](https://datausa.io/api/data?drilldowns=Nation&measures=Population)
 - [class starter code](https://github.com/initialcapacity/kotlin-ktor-starter)
 - [CI for semaphore](https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application)
 - [CD for heloku, semaphore, and mongo Atlas](https://semaphoreci.com/community/tutorials/continuous-deployment-of-a-python-flask-application-with-docker-and-semaphore)

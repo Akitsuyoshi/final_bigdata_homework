@@ -17,7 +17,7 @@ blocks:
             - 'docker pull "${DOCKER_USERNAME}/nodejs_data_collector_server:latest"'
             - 'heroku container:login'
             - 'docker tag "${DOCKER_USERNAME}/nodejs_basic_server:latest" "registry.heroku.com/${HEROKU_APP}/web"'
-            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_analyer_server:latest" "registry.heroku.com/${HEROKU_APP}/worker/analyzer"'
+            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_analyzer_server:latest" "registry.heroku.com/${HEROKU_APP}/worker/analyzer"'
             - 'docker tag "${DOCKER_USERNAME}/nodejs_data_collector_server:latest" "registry.heroku.com/${HEROKU_APP}/worker/collector"'
             - 'docker push "registry.heroku.com/${HEROKU_APP}/web"'
             - 'docker push "registry.heroku.com/${HEROKU_APP}/worker/analyzer"'

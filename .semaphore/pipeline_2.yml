@@ -24,7 +24,7 @@ blocks:
             - 'docker push "registry.heroku.com/${HEROKU_APP}/worker/collector"'
             - 'heroku config:set DB="$MONGODOB_URI"'
             - 'heroku stack:set container --app $HEROKU_APP'
-            - 'heroku container:release "registry.heroku.com/${HEROKU_APP}/web" "registry.heroku.com/${HEROKU_APP}/worker/analyzer" "registry.heroku.com/${HEROKU_APP}/worker/collector" --app $HEROKU_APP'
+            - 'heroku container:release web worker --app $HEROKU_APP'
       secrets:
         - name: dockerhub
         - name: heroku

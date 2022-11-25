@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 const promMid = require('express-prometheus-middleware');
 const mongoose = require('mongoose')
+const populationModel = require('./population')
 
 if (process.env.NODE_ENV !== 'production') {
     mongoose.connect('mongodb://mongo:27017', {
@@ -27,6 +28,15 @@ app.use(promMid({
 
 app.get('/health', (req, res) => {
     res.status(200).send("ok")
+})
+
+app.get('/us_data_average', async (req, res) => {
+    try {
+        const average = await populationModel.aggregate([{ $group: { _id: null, avg_val: { $avg: "$population" } } }])
+        res.status(200).send(average)
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 module.exports = app

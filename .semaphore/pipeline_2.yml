@@ -1,0 +1,33 @@
+version: v1.0
+name: Deploy to Heroku
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Deploy to heroku
+    task:
+      jobs:
+        - name: deploy
+          commands:
+            - checkout
+            - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+            - 'docker pull "${DOCKER_USERNAME}/nodejs_basic_server:latest"'
+            - 'docker pull "${DOCKER_USERNAME}/nodejs_data_analyzer_server:latest"'
+            - 'docker pull "${DOCKER_USERNAME}/nodejs_data_collector_server:latest"'
+            - 'docker tag "${DOCKER_USERNAME}/nodejs_basic_server:latest" registry.heroku.com/$HEROKU_APP/basic_server'
+            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_analyer_server:latest" registry.heroku.com/$HEROKU_APP/data_analyer_server'
+            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_collector_server:latest" registry.heroku.com/$HEROKU_APP/data_collector_server'
+            - docker push registry.heroku.com/$HEROKU_APP/basic_server
+            - docker push registry.heroku.com/$HEROKU_APP/data_analyzer_server
+            - docker push registry.heroku.com/$HEROKU_APP/data_collector_server
+            - 'heroku config:set DB="$MONGODOB_URI'
+            - 'heroku stack:set container --app $HEROKU_APP'
+            - 'heroku container:release web --app $HEROKU_APP'
+      secrets:
+        - name: dockerhub
+        - name: heroku
+        - name: mongodb-atlast
+      env_vars:
+        - name: $HEROKU_APP
+          value: semaphore-demo-for-final-app

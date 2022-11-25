@@ -38,3 +38,11 @@ blocks:
             - docker-compose run basic_server npm test
             - docker-compose run data_analyzer npm test
             - docker-compose run data_collector npm test
+after_pipeline:
+  task:
+    jobs:
+      - name: 'Job #1'
+        commands: []
+promotions:
+  - name: Promotion 1
+    pipeline_file: pipeline_2.yml

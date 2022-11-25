@@ -17,14 +17,14 @@ blocks:
             - 'docker pull "${DOCKER_USERNAME}/nodejs_data_collector_server:latest"'
             - 'heroku container:login'
             - 'docker tag "${DOCKER_USERNAME}/nodejs_basic_server:latest" "registry.heroku.com/${HEROKU_APP}/web"'
-            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_analyzer_server:latest" "registry.heroku.com/${HEROKU_APP}/worker/analyzer"'
-            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_collector_server:latest" "registry.heroku.com/${HEROKU_APP}/worker/collector"'
+            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_analyzer_server:latest" "registry.heroku.com/${HEROKU_APP}/worker"'
+            - 'docker tag "${DOCKER_USERNAME}/nodejs_data_collector_server:latest" "registry.heroku.com/${HEROKU_APP}/worker"'
             - 'docker push "registry.heroku.com/${HEROKU_APP}/web"'
-            - 'docker push "registry.heroku.com/${HEROKU_APP}/worker/analyzer"'
-            - 'docker push "registry.heroku.com/${HEROKU_APP}/worker/collector"'
+            - 'docker push "registry.heroku.com/${HEROKU_APP}/worker"'
+            - 'docker push "registry.heroku.com/${HEROKU_APP}/worker"'
             - 'heroku config:set DB="$MONGODOB_URI"'
             - 'heroku stack:set container --app $HEROKU_APP'
-            - 'heroku container:release web worker/analyzer worker/collector --app $HEROKU_APP'
+            - 'heroku container:release web worker worker --app $HEROKU_APP'
       secrets:
         - name: dockerhub
         - name: heroku

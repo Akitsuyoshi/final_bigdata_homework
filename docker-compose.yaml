@@ -27,3 +27,5 @@ services:
       - "3002:3002"
     environment:
       PORT: 3002
+    depends_on:
+      - mongo

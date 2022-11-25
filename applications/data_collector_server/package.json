@@ -17,7 +17,9 @@
   "dependencies": {
     "express": "^4.18.2",
     "express-prometheus-middleware": "^1.2.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "mongodb": "^4.12.0",
+    "mongoose": "^6.7.2"
   },
   "devDependencies": {
     "jest": "^29.3.1",

@@ -104,9 +104,24 @@ The 2 GET endpoints below will show the app's condition.
 
     → Returns meaningful metrics given by prometheus
 
+### RABBITMQ
+
+After `docker-compose up --build`, you will see 3 web apps running. If you post `localhost:3000/rabbit_publish`, it publish the sample message. The data_analyzer app will get received the published message.
+
+```sh
+## In a new terminal window
+
+> curl -X POST http://localhost:3000/rabbit_publish
+
+## In another window to see the published msg
+
+> docker-compose logs -f data_analyzer
+```
+
 ## REFERENCES
 
 - [external api url](https://datausa.io/api/data?drilldowns=Nation&measures=Population)
 - [class starter code](https://github.com/initialcapacity/kotlin-ktor-starter)
 - [CI for semaphore](https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application)
 - [CD for heloku, semaphore, and mongo Atlas](https://semaphoreci.com/community/tutorials/continuous-deployment-of-a-python-flask-application-with-docker-and-semaphore)
+- [RabbitMQ implementation in node.js using docker](https://geshan.com.np/blog/2021/07/rabbitmq-docker-nodejs/)

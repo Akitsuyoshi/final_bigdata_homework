@@ -7,15 +7,22 @@ services:
       - "3000:3000"
     environment:
       PORT: 3000
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitmq_node
   data_analyzer:
     image: ${DOCKER_USERNAME}/nodejs_data_analyzer_server:latest
-    command: "npm run test"
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- jest'
     ports:
       - "3001:3001"
     environment:
       PORT: 3001
     depends_on:
       - mongo
+      - rabbitmq
+    networks:
+      - rabbitmq_node
   mongo:
     image: registry.semaphoreci.com/mongo:4.4
     command: mongod --logpath=/dev/null # --quiet
@@ -23,6 +30,8 @@ services:
       - ./data:/data
     ports:
       - "27017:27017"
+    networks:
+      - rabbitmq_node
   data_collector:
     image: ${DOCKER_USERNAME}/nodejs_data_collector_server:latest
     command: "npm run test"
@@ -32,3 +41,17 @@ services:
       PORT: 3002
     depends_on:
       - mongo
+    networks:
+      - rabbitmq_node
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_node
+networks:
+  rabbitmq_node:
+    driver: bridge

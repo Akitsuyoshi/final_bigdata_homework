@@ -12,11 +12,11 @@ const connect = async (mseconds) => {
     const connection = await amqplib.connect(amqpUrl, 'heartbeat=60')
     const channel = await connection.createChannel()
     channel.prefetch(10)
-    process.once('SIGINT', async () => {
-        await channel.close()
-        await connection.close()
-        process.exit(0)
-    })
+    // process.once('SIGINT', async () => {
+    //     await channel.close()
+    //     await connection.close()
+    //     process.exit(0)
+    // })
 
     const queue = 'sample_queue'
     await channel.assertQueue(queue, { durable: true })
